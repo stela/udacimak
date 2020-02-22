@@ -154,6 +154,9 @@ export default function downloadYoutube(videoId, outputPath, prefix, title, form
       } else if (message.includes('video is no longer available')) {
         logger.error(`Youtube video with id ${videoId} is no longer available. The CLI will ignore this error and skip this download.`);
         resolve(null);
+      } else if (message.includes('500')) {
+        logger.error(`Youtube video with id ${videoId} returned HTTP Status 500, continuing...`);
+        resolve(null);
       } else {
         reject(error);
       }
